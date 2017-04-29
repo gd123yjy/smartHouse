@@ -1,5 +1,7 @@
 package com.example.yjy.smarthouse_android.protocol;
 
+import android.text.TextUtils;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,17 +32,33 @@ public class ProtocalHelper {
         location.put("卧室",ProtocalList.LOCATION_BEDROOM);
     }
 
+    public static String winString2Linux(final String content) {
+        if (TextUtils.isEmpty(content)) {
+            return null;
+        }
+        StringBuffer buffer = new StringBuffer();
+        final char[] chars = content.toCharArray();
+        char curChar;
+        for (int i =0 ; i < chars.length; i++) {
+            curChar = chars[i];
+            if ('\r' != curChar) {
+                buffer.append(curChar);
+            }
+        }
+        return buffer.toString();
+    }
+
     public synchronized static ProtocalParseResult parseCommand(String text) throws JSONException {
 
         //what the fucking encode
-        JSONObject input = null;
+        JSONObject input;
+        /*String decode = null;
         try {
-            String decode = new String(text.getBytes(),"UTF-8");
-            input = new JSONObject(decode);
+            decode = (String.valueOf(text.getBytes("GBK")));
         } catch (UnsupportedEncodingException e) {
-            input = new JSONObject(text);
             e.printStackTrace();
-        }
+        }*/
+        input = new JSONObject(text);
         JSONObject message = new JSONObject();
         Integer deviceID;
 

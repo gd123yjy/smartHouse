@@ -4,6 +4,7 @@
 
     <!-- onenet app-key -->
     <string name="onenet_app_key">8T=kDEqacwFHyK79OCYz8HCB9yY=</string>
+    <string name="onenet_restful_api">api.heclouds.com</string>
 
     <!-- 请替换成在语音云官网申请的appid -->
     <string name="app_id">58f82750</string>

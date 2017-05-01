@@ -186,7 +186,8 @@ public class UnderstanderDemo extends Activity implements OnClickListener {
 
 					try {
 						ProtocalParseResult parseResult = ProtocalHelper.parseCommand(text);
-						RestfulRequest.create("baseURL"+"/"+parseResult.getDeviceID()).buildHeader(new AbstractMap.SimpleEntry("api-key",R.string.onenet_app_key)).buildContent(parseResult.getJsonMessage()).send();
+						//caution,buildContent must be earlier than buildOperation if using "POST"
+						RestfulRequest.create().buildUri("http://"+getString(R.string.onenet_restful_api)+"/cmds?device_id="+parseResult.getDeviceID()).buildHeader("api-key",getString(R.string.onenet_app_key)).buildContent(parseResult.getJsonMessage()).buildOperation("POST").send();
 					} catch (JSONException e) {
 						e.printStackTrace();
 						// TODO: 17-4-29 show the error input for user
@@ -220,10 +221,10 @@ public class UnderstanderDemo extends Activity implements OnClickListener {
 				String text = result.getResultString();
 				if (!TextUtils.isEmpty(text)) {
 					mUnderstanderText.setText(text);
-
 					try {
 						ProtocalParseResult parseResult = ProtocalHelper.parseCommand(text);
-						RestfulRequest.create("baseURL"+"/"+parseResult.getDeviceID()).buildHeader(new AbstractMap.SimpleEntry("api-key",R.string.onenet_app_key)).buildContent(parseResult.getJsonMessage()).send();
+						//caution,buildContent must be earlier than buildOperation if using "POST"
+						RestfulRequest.create().buildUri("http://"+getString(R.string.onenet_restful_api)+"/cmds?device_id="+parseResult.getDeviceID()).buildHeader("api-key",getString(R.string.onenet_app_key)).buildContent(parseResult.getJsonMessage()).buildOperation("POST").send();
 					} catch (Exception e) {
 						e.printStackTrace();
 						// TODO: 17-4-29 show the error input for user

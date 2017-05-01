@@ -1,5 +1,6 @@
 package com.example.yjy.smarthouse_android;
 
+import org.json.JSONObject;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

@@ -1,11 +1,14 @@
 package com.example.yjy.smarthouse_android.protocol;
 
 import android.text.TextUtils;
+import android.util.Log;
+
+import com.example.yjy.smarthouse_android.exception.NoActionException;
+import com.example.yjy.smarthouse_android.exception.NoObjectException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
 /**
@@ -50,14 +53,8 @@ public class ProtocalHelper {
 
     public synchronized static ProtocalParseResult parseCommand(String text) throws JSONException {
 
-        //what the fucking encode
         JSONObject input;
-        /*String decode = null;
-        try {
-            decode = (String.valueOf(text.getBytes("GBK")));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }*/
+
         input = new JSONObject(text);
         JSONObject message = new JSONObject();
         Integer deviceID;
@@ -65,7 +62,7 @@ public class ProtocalHelper {
         //parse json message
         JSONObject slots = input.getJSONObject("semantic").getJSONObject("slots");
 
-        Integer action = actions.get(actions.get(slots.getString("attrValue")));
+        Integer action = actions.get(slots.getString("attrValue"));
         if (action == null){
             throw new NoActionException();
         }else {

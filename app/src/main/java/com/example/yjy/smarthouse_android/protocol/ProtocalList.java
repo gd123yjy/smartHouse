@@ -15,8 +15,11 @@ public class ProtocalList extends BaseProtocal{
     /** location **/
     public static final int LOCATION_UNDERDOOR = 3000;
     public static final int LOCATION_KITCHEN = 3001;
-    public static final int LOCATION_BATHROOM = 3002;
-    public static final int LOCATION_BEDROOM = 3003;
+    public static final int LOCATION_BEDROOM = 3002;
+    public static final int LOCATION_BATHROOM = 3003;
+
+    public static final int LOCATION_DEFAULT = LOCATION_UNDERDOOR;
+
 
 
     /**

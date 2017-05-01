@@ -11,14 +11,33 @@ public class DeviceHelper {
 
     static {
         HashMap<Integer,Integer> light = new HashMap<>();
+        light.put(ProtocalList.LOCATION_BATHROOM,5696229);
         light.put(ProtocalList.LOCATION_BEDROOM,5645900);
-        light.put(ProtocalList.LOCATION_UNDERDOOR,5645891);
         light.put(ProtocalList.LOCATION_KITCHEN,5529300);
+        light.put(ProtocalList.LOCATION_UNDERDOOR,5645891);
+
+        HashMap<Integer,Integer> camera = new HashMap<>();
+        // TODO: 17-5-1 device id to be modified
+        camera.put(ProtocalList.LOCATION_BATHROOM,5696229);
+        camera.put(ProtocalList.LOCATION_BEDROOM,5645900);
+        camera.put(ProtocalList.LOCATION_KITCHEN,5529300);
+        camera.put(ProtocalList.LOCATION_UNDERDOOR,5645891);
+
+        HashMap<Integer,Integer> airControl = new HashMap<>();
+        // TODO: 17-5-1 device id to be modified
+        airControl.put(ProtocalList.LOCATION_BATHROOM,5696229);
+        airControl.put(ProtocalList.LOCATION_BEDROOM,5645900);
+        airControl.put(ProtocalList.LOCATION_KITCHEN,5529300);
+        airControl.put(ProtocalList.LOCATION_UNDERDOOR,5645891);
 
         deviceTable.put(ProtocalList.DEVICE_LIGHT,light);
+        deviceTable.put(ProtocalList.DEVICE_CAMERA,camera);
+        deviceTable.put(ProtocalList.DEVICE_AIRCONTROL,airControl);
     }
 
     public static Integer parseDeviceID(Integer deviceType, Integer s_location) {
+        if (deviceType==null) return null;
+        if (s_location==null) s_location = ProtocalList.LOCATION_DEFAULT;
         return deviceTable.get(deviceType).get(s_location);
     }
 }

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.yjy.smarthouse_android.R;
 import com.example.yjy.smarthouse_android.protocol.ProtocalHelper;
+import com.example.yjy.smarthouse_android.protocol.ProtocalList;
 import com.example.yjy.smarthouse_android.protocol.ProtocalParseResult;
 import com.example.yjy.smarthouse_android.protocol.RestfulRequest;
 import com.iflytek.cloud.ErrorCode;
@@ -224,7 +225,7 @@ public class UnderstanderDemo extends Activity implements OnClickListener {
 					try {
 						ProtocalParseResult parseResult = ProtocalHelper.parseCommand(text);
 						//caution,buildContent must be earlier than buildOperation if using "POST"
-						RestfulRequest.create().buildUri("http://"+getString(R.string.onenet_restful_api)+"/cmds?device_id="+parseResult.getDeviceID()).buildHeader("api-key",getString(R.string.onenet_app_key)).buildContent(parseResult.getJsonMessage()).buildOperation("POST").send();
+						RestfulRequest.create().buildUri("http://"+getString(R.string.onenet_restful_api)+"/cmds?device_id="+ ProtocalList.ID_CONTROLLER).buildHeader("api-key",getString(R.string.onenet_app_key)).buildContent(parseResult.getJsonMessage()).buildOperation("POST").send();
 					} catch (Exception e) {
 						e.printStackTrace();
 						// TODO: 17-4-29 show the error input for user

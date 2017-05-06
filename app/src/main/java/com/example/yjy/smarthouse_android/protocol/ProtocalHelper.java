@@ -52,7 +52,6 @@ public class ProtocalHelper {
     }
 
     public synchronized static ProtocalParseResult parseCommand(String text) throws JSONException {
-
         JSONObject input;
 
         input = new JSONObject(text);
@@ -79,6 +78,7 @@ public class ProtocalHelper {
             deviceType = null;
             s_location = null;
         }
+        // TODO: 17-5-6 device id should be placed in message now
         deviceID = DeviceHelper.parseDeviceID(deviceType,s_location);
         if (deviceID==null){
             throw new NoObjectException();

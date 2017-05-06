@@ -20,8 +20,6 @@ public class ProtocalList extends BaseProtocal{
 
     public static final int LOCATION_DEFAULT = LOCATION_UNDERDOOR;
 
-
-
     /**
      * information such as groups,situations are stored in local android client
      */

@@ -17,4 +17,31 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="RoundBtn">
+        <item name="android:layout_width">@dimen/round_btn_length</item>
+        <item name="android:layout_height">@dimen/round_btn_length</item>
+        <item name="android:background">@drawable/circle_bg</item>
+    </style>
+
+
+    <style name="ListViewStyle" parent="@android:style/Widget.Holo.ListView">
+        <item name="android:listSelector">@color/transparent</item>
+        <item name="android:divider">@color/transparent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/list_view_margin</item>
+        <item name="android:dividerHeight">3dp</item>
+    </style>
+
+    <style name="NormalBtn">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/text_padding</item>
+        <item name="android:layout_margin">@dimen/margin</item>
+        <item name="android:textSize">@dimen/text_size_middle</item>
+        <item name="android:background">@drawable/item_selector</item>
+    </style>
+
+    <color name="transparent">#00000000</color>
+    <dimen name="list_view_margin">5dp</dimen>
 </resources>

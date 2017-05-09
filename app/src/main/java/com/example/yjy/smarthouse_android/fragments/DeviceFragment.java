@@ -4,23 +4,24 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.example.yjy.smarthouse_android.R;
+import com.example.yjy.smarthouse_android.adapters.DeviceListViewAdapter;
+import com.example.yjy.smarthouse_android.beans.Device;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Tradoff on 2017/5/7.
  */
-public class DeviceFragment extends BaseControlFragment implements View.OnClickListener{
-    public interface OnControlFragmentReplace{
-        void onReplace(View view);
-    }
-
-    private OnControlFragmentReplace mDlg = null;
+public class DeviceFragment extends BaseFragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_control, container, false);
+        View view = inflater.inflate(R.layout.device_control, container, false);
         return view;
     }
 
@@ -31,23 +32,18 @@ public class DeviceFragment extends BaseControlFragment implements View.OnClickL
         initView();
     }
 
-    public void setDlg(OnControlFragmentReplace dlg){
-        mDlg = dlg;
-    }
-
     private void initView() {
-        View view = getView();
-       view.findViewById(R.id.light_control_btn).setOnClickListener(this);
-       view.findViewById(R.id.water_elec_control_btn).setOnClickListener(this);
-       view.findViewById(R.id.door_control_btn).setOnClickListener(this);
-       view.findViewById(R.id.temp_hum_control_btn).setOnClickListener(this);
+        ListView listView = (ListView) getView().findViewById(R.id.device_lv);
+        List<Device> deviceList = new ArrayList<>();
+        initDeviceList(deviceList);
+        DeviceListViewAdapter adapter = new DeviceListViewAdapter(getActivity(), R.layout.item_device, deviceList);
+        listView.setAdapter(adapter);
     }
 
-
-    @Override
-    public void onClick(View v) {
-       if(mDlg!=null){
-           mDlg.onReplace(v);
-       }
+    private void initDeviceList(List<Device> deviceList) {
+        deviceList.add(new Device("dfsfds", "kitchen", "light"));
+        deviceList.add(new Device("gfdsgs", "bedroom", "light"));
+        deviceList.add(new Device("342224", "kitchen", "light"));
     }
+
 }

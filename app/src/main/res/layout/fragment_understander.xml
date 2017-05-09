@@ -8,31 +8,21 @@
     android:focusableInTouchMode="true"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
+    android:paddingLeft="@dimen/padding"
+    android:paddingRight="@dimen/padding"
     tools:context=".MainActivity"
     >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp" >
+        android:layout_margin="@dimen/margin" >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="讯飞语义示例"
-            android:textSize="30sp" />
-<!--
-        <com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager
-            android:id="@+id/list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            app:rvp_triggerOffset="0.1"
-            app:rvp_singlePageFling="true"
-            android:clipToPadding="false"/>-->
+            android:textSize="@dimen/text_size_large" />
 
         <ImageButton
             android:id="@+id/image_understander_set"
@@ -51,25 +41,23 @@
         android:gravity="top|left"
         android:hint="@string/text_understand_hint"
         android:paddingBottom="40dp"
-        android:textSize="20sp" />
+        android:textSize="@dimen/text_size_middle" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="2dp"
-        android:layout_marginTop="10dp"
+        android:layout_margin="10dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal" >
 
 
-
-        <Button
+        <android.support.design.widget.FloatingActionButton
             android:id="@+id/start_understander"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="语音语义"
-            android:textSize="20sp" />
+            android:layout_gravity="bottom|end"
+            android:src="@android:drawable/ic_btn_speak_now" />
     </LinearLayout>
 
 

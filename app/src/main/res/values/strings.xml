@@ -155,4 +155,16 @@
         <item>开启</item>
         <item>关闭</item>
     </string-array>
+    <string name="title_activity_base">BaseActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="light_control">灯光控制</string>
+    <string name="water_elec_control">水电监控</string>
+    <string name="door_control">门禁控制</string>
+    <string name="temp_hum_control">温湿监控</string>
 </resources>

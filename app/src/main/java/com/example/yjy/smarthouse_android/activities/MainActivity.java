@@ -33,10 +33,8 @@ import com.iflytek.sunflower.FlowerCollector;
 
 import org.json.JSONException;
 
-import java.util.AbstractMap;
-
-public class UnderstanderDemo extends Activity implements OnClickListener {
-	private static String TAG = UnderstanderDemo.class.getSimpleName();
+public class MainActivity extends Activity implements OnClickListener {
+	private static String TAG = MainActivity.class.getSimpleName();
 	// 语义理解对象（语音到语义）。
 	private SpeechUnderstander mSpeechUnderstander;
 	// 语义理解对象（文本到语义）。
@@ -59,24 +57,24 @@ public class UnderstanderDemo extends Activity implements OnClickListener {
 		 * 配置相应的语音场景，才能使用语义理解，否则文本理解将不能使用，语义理解将返回听写结果。
 		 */
 		// 初始化对象
-		mSpeechUnderstander = SpeechUnderstander.createUnderstander(UnderstanderDemo.this, mSpeechUdrInitListener);
-		mTextUnderstander = TextUnderstander.createTextUnderstander(UnderstanderDemo.this, mTextUdrInitListener);
+		mSpeechUnderstander = SpeechUnderstander.createUnderstander(MainActivity.this, mSpeechUdrInitListener);
+		mTextUnderstander = TextUnderstander.createTextUnderstander(MainActivity.this, mTextUdrInitListener);
 		
-		mToast = Toast.makeText(UnderstanderDemo.this, "", Toast.LENGTH_SHORT);
+		mToast = Toast.makeText(MainActivity.this, "", Toast.LENGTH_SHORT);
 	}
 	
 	/**
 	 * 初始化Layout。
 	 */
 	private void initLayout(){
-		findViewById(R.id.text_understander).setOnClickListener(UnderstanderDemo.this);
-		findViewById(R.id.start_understander).setOnClickListener(UnderstanderDemo.this);
+		findViewById(R.id.text_understander).setOnClickListener(MainActivity.this);
+		findViewById(R.id.start_understander).setOnClickListener(MainActivity.this);
 		
 		mUnderstanderText = (EditText)findViewById(R.id.understander_text);
 		
-		findViewById(R.id.understander_stop).setOnClickListener(UnderstanderDemo.this);
-		findViewById(R.id.understander_cancel).setOnClickListener(UnderstanderDemo.this);
-		findViewById(R.id.image_understander_set).setOnClickListener(UnderstanderDemo.this);
+		findViewById(R.id.understander_stop).setOnClickListener(MainActivity.this);
+		findViewById(R.id.understander_cancel).setOnClickListener(MainActivity.this);
+		findViewById(R.id.image_understander_set).setOnClickListener(MainActivity.this);
 		
 		mSharedPreferences = getSharedPreferences(UnderstanderSettings.PREFER_NAME, Activity.MODE_PRIVATE);
 	}
@@ -122,7 +120,7 @@ public class UnderstanderDemo extends Activity implements OnClickListener {
 		switch (view.getId()) {
 		// 进入参数设置页面
 		case R.id.image_understander_set:
-			Intent intent = new Intent(UnderstanderDemo.this, UnderstanderSettings.class);
+			Intent intent = new Intent(MainActivity.this, UnderstanderSettings.class);
 			startActivity(intent);
 			break;
 		// 开始文本理解
@@ -325,7 +323,7 @@ public class UnderstanderDemo extends Activity implements OnClickListener {
 	@Override
 	protected void onResume() {
 		//移动数据统计分析
-		FlowerCollector.onResume(UnderstanderDemo.this);
+		FlowerCollector.onResume(MainActivity.this);
 		FlowerCollector.onPageStart(TAG);
 		super.onResume();
 	}
@@ -334,7 +332,7 @@ public class UnderstanderDemo extends Activity implements OnClickListener {
 	protected void onPause() {
 		//移动数据统计分析
 		FlowerCollector.onPageEnd(TAG);
-		FlowerCollector.onPause(UnderstanderDemo.this);
+		FlowerCollector.onPause(MainActivity.this);
 		super.onPause();
 	}
 	

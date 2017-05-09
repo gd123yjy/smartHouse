@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    
+    <Button
+        android:id="@+id/light_control_btn"
+        android:text="@string/light_control"
+        style="@style/NormalBtn" />
+    <Button
+        android:id="@+id/water_elec_control_btn"
+        android:text="@string/water_elec_control"
+        style="@style/NormalBtn" />
+    <Button
+        android:id="@+id/door_control_btn"
+        android:text="@string/door_control"
+        style="@style/NormalBtn" />
+    <Button
+        android:id="@+id/temp_hum_control_btn"
+        android:text="@string/temp_hum_control"
+        style="@style/NormalBtn" />
+
+</LinearLayout>

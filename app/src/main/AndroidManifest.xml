@@ -22,7 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".view.activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
@@ -31,7 +31,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".speech.setting.UnderstanderSettings" />
+        <activity android:name=".toolkit.speech.setting.UnderstanderSettings" />
 
         <!-- 移动统计分析 -->
         <meta-data
@@ -42,7 +42,7 @@
             android:value="smartHouse_android" />
 
         <activity
-            android:name=".activities.BaseActivity"
+            android:name=".view.activities.BaseActivity"
             android:label="@string/title_activity_base" >
         </activity>
     </application>

@@ -3,9 +3,15 @@ package com.example.yjy.smarthouse_android.toolkit.http;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.yjy.smarthouse_android.exceptions.ErrorCommandResponseException;
+import com.example.yjy.smarthouse_android.toolkit.protocol.StringHelper;
+
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -25,7 +31,7 @@ public class RestfulRequest {
     public static OkHttpClient mOkHttpClient = new OkHttpClient();
 
     private Request.Builder requestBuilder;
-    private RequestBody body;
+    private RequestBody body = null;
 
     private RestfulRequest(){
         requestBuilder = new Request.Builder();
@@ -40,7 +46,7 @@ public class RestfulRequest {
         if (message instanceof JSONObject){
             body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),message.toString());
         }else {
-            // TODO: 17-5-1  to be implemented
+            // to be implemented
         }
         return instance;
     }
@@ -52,8 +58,22 @@ public class RestfulRequest {
     // cannot execute network operation in UI thread
     public RestfulResponse send() {
         //发送请求获取响应
-        new HttpTask().execute();
-        return new RestfulResponse();
+        AsyncTask<Object,Integer,Response> task = new HttpTask().execute();
+        try {
+            return new RestfulResponse(task.get(2, TimeUnit.SECONDS));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return null;
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            return null;
+        } catch (ErrorCommandResponseException e) {
+            e.printStackTrace();
+            return null;
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public RestfulRequest buildParameter(String key, String value) {
@@ -66,25 +86,29 @@ public class RestfulRequest {
     }
 
     public RestfulRequest buildOperation(String operation) {
-        requestBuilder.method(operation,body);
+        switch (operation){
+            case "GET":
+                requestBuilder.get();
+                break;
+            case "POST":
+                requestBuilder.post(body);
+                break;
+            default:
+                requestBuilder.method(operation,body);
+                break;
+        }
         return instance;
     }
 
 
-    private class HttpTask extends AsyncTask<Object,Object,Object>{
+    private class HttpTask extends AsyncTask<Object,Integer,Response>{
 
         @Override
-        protected Object doInBackground(Object[] params) {
+        protected Response doInBackground(Object[] params) {
             Response response = null;
             try {
                 Request request = requestBuilder.build();
                 response = mOkHttpClient.newCall(request).execute();
-                // discard below code if the network is poor
-                //判断请求是否成功
-                if(response.isSuccessful()){
-                    //打印服务端返回结果
-                    Log.i(TAG,response.body().string());
-                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

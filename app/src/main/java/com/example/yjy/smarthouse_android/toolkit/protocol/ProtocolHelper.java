@@ -1,10 +1,11 @@
 package com.example.yjy.smarthouse_android.toolkit.protocol;
 
-import android.text.TextUtils;
-
 import com.example.yjy.smarthouse_android.bussiness.device.DeviceHelper;
 import com.example.yjy.smarthouse_android.bussiness.protocol.ProtocalList;
 import com.example.yjy.smarthouse_android.bussiness.protocol.ProtocolCommand;
+import com.example.yjy.smarthouse_android.bussiness.protocol.ProtocolCommandResponse;
+import com.example.yjy.smarthouse_android.exceptions.ErrorCommandException;
+import com.example.yjy.smarthouse_android.exceptions.ErrorResponseException;
 import com.example.yjy.smarthouse_android.exceptions.NoActionException;
 import com.example.yjy.smarthouse_android.exceptions.NoObjectException;
 
@@ -37,30 +38,29 @@ public class ProtocolHelper {
         location.put("卧室",ProtocalList.LOCATION_BEDROOM);
     }
 
-    public static String winString2Linux(final String content) {
-        if (TextUtils.isEmpty(content)) {
-            return null;
+    public synchronized static ProtocolCommand parseCommand(String text) throws ErrorCommandException {
+        JSONObject input = null;
+        try {
+            input = new JSONObject(text);
+        } catch (JSONException e) {
+            throw new ErrorCommandException();
         }
-        StringBuffer buffer = new StringBuffer();
-        final char[] chars = content.toCharArray();
-        char curChar;
-        for (int i =0 ; i < chars.length; i++) {
-            curChar = chars[i];
-            if ('\r' != curChar) {
-                buffer.append(curChar);
-            }
-        }
-        return buffer.toString();
-    }
-
-    public synchronized static ProtocolCommand parseCommand(String text) throws JSONException {
-        JSONObject input = new JSONObject(text);
         Integer deviceID;
 
         //parse json message
-        JSONObject slots = input.getJSONObject("semantic").getJSONObject("slots");
+        JSONObject slots = null;
+        try {
+            slots = input.getJSONObject("semantic").getJSONObject("slots");
+        } catch (JSONException e) {
+            throw new ErrorCommandException();
+        }
 
-        Integer action = actions.get(slots.getString("attrValue"));
+        Integer action = null;
+        try {
+            action = actions.get(slots.getString("attrValue"));
+        } catch (JSONException e) {
+            throw new ErrorCommandException();
+        }
         if (action == null){
             throw new NoActionException();
         }
@@ -81,5 +81,14 @@ public class ProtocolHelper {
         }
 
         return new ProtocolCommand(deviceID,action);
+    }
+
+
+    public synchronized static ProtocolCommandResponse parseCommandResponse(JSONObject jsonObject) throws ErrorResponseException {
+        try {
+            return new ProtocolCommandResponse(jsonObject.getInt("action"),jsonObject.get("body"));
+        } catch (JSONException e) {
+            throw new ErrorResponseException();
+        }
     }
 }

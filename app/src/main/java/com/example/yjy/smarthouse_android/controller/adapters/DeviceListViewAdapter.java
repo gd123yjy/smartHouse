@@ -9,22 +9,20 @@ import android.widget.TextView;
 
 import com.example.yjy.smarthouse_android.R;
 import com.example.yjy.smarthouse_android.model.beans.Device;
-import com.example.yjy.smarthouse_android.model.dao.DeviceListSynctor;
+
+import java.util.List;
 
 /**
  * Created by Tradoff on 2017/5/7.
  */
 public class DeviceListViewAdapter extends ArrayAdapter<Device> {
-    // TODO: 17-5-11 data sync to be done
     private Context mContext;
     private LayoutInflater mInflater;
-    private DeviceListSynctor mSynctor;
 
-    public DeviceListViewAdapter(Context context, int resource, DeviceListSynctor synctor) {
-        super(context, resource);
+    public DeviceListViewAdapter(Context context, int resource, List list) {
+        super(context, resource,list);
         mContext = context;
         mInflater = LayoutInflater.from(mContext);
-        mSynctor = synctor;
     }
 
     @Override

@@ -9,14 +9,18 @@ import android.widget.ListView;
 import com.example.yjy.smarthouse_android.R;
 import com.example.yjy.smarthouse_android.controller.adapters.DeviceListViewAdapter;
 import com.example.yjy.smarthouse_android.model.beans.Device;
-import com.example.yjy.smarthouse_android.model.dao.DeviceListSynctor;
+import com.example.yjy.smarthouse_android.model.dao.DeviceLister;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Tradoff on 2017/5/7.
  */
 public class DeviceFragment extends BaseFragment{
+
+    private DeviceListViewAdapter adapter;
+    private List<Device> deviceList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,16 +38,10 @@ public class DeviceFragment extends BaseFragment{
 
     private void initView() {
         ListView listView = (ListView) getView().findViewById(R.id.device_lv);
-        //List<Device> deviceList = new ArrayList<>();
-        //initDeviceList(deviceList);
-        DeviceListViewAdapter adapter = new DeviceListViewAdapter(getActivity(), R.layout.item_device,new DeviceListSynctor());
+        DeviceLister.getInstance().refreshData(deviceList);
+        adapter = new DeviceListViewAdapter(getActivity(), R.layout.item_device,deviceList);
         listView.setAdapter(adapter);
     }
 
-    private void initDeviceList(List<Device> deviceList) {
-        deviceList.add(new Device("dfsfds", "kitchen", "light"));
-        deviceList.add(new Device("gfdsgs", "bedroom", "light"));
-        deviceList.add(new Device("342224", "kitchen", "light"));
-    }
 
 }

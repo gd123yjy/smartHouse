@@ -99,7 +99,7 @@ public class DeviceLister {
          }
          */
         RestfulResponse response = RestfulRequest.create()
-                .buildUri("http://"+host+"/cmds?device_id="+ ProtocalList.ID_CONTROLLER)
+                .buildUri("http://"+host+"/cmds?device_id="+ ProtocalList.ID_CONTROLLER+"&qos=1")
                 .buildHeader("api-key",app_key)
                 .buildContent(new ProtocolCommand(null,ProtocalList.LIST_DEVICE).getJsonMessage())
                 .buildOperation("POST")

@@ -20,38 +20,14 @@ import java.util.List;
  * Created by yjy on 17-4-29.
  */
 public class DeviceHelper {
-    // TODO: 17-5-1 device id to be modified
 
-    private static HashMap<Integer,HashMap<Integer,Integer>> deviceTable = new HashMap<>();
-
-    static {
-        HashMap<Integer,Integer> light = new HashMap<>();
-        light.put(ProtocalList.LOCATION_BATHROOM,5696229);
-        light.put(ProtocalList.LOCATION_BEDROOM,5645900);
-        light.put(ProtocalList.LOCATION_KITCHEN,5529300);
-        light.put(ProtocalList.LOCATION_UNDERDOOR,5645891);
-
-        HashMap<Integer,Integer> camera = new HashMap<>();
-        camera.put(ProtocalList.LOCATION_BATHROOM,5696229);
-        camera.put(ProtocalList.LOCATION_BEDROOM,5645900);
-        camera.put(ProtocalList.LOCATION_KITCHEN,5529300);
-        camera.put(ProtocalList.LOCATION_UNDERDOOR,5645891);
-
-        HashMap<Integer,Integer> airControl = new HashMap<>();
-        airControl.put(ProtocalList.LOCATION_BATHROOM,5696229);
-        airControl.put(ProtocalList.LOCATION_BEDROOM,5645900);
-        airControl.put(ProtocalList.LOCATION_KITCHEN,5529300);
-        airControl.put(ProtocalList.LOCATION_UNDERDOOR,5645891);
-
-        deviceTable.put(ProtocalList.DEVICE_LIGHT,light);
-        deviceTable.put(ProtocalList.DEVICE_CAMERA,camera);
-        deviceTable.put(ProtocalList.DEVICE_AIRCONTROL,airControl);
-    }
+    //type*1000+location*1=>device
+    static HashMap<Integer,Device> devices = new HashMap<>(20);
 
     public static Integer parseDeviceID(Integer deviceType, Integer s_location) {
         if (deviceType==null) return null;
         if (s_location==null) s_location = ProtocalList.LOCATION_DEFAULT;
-        return deviceTable.get(deviceType).get(s_location);
+        return devices.get(deviceType*1000+s_location).getID();
     }
 
     public static void parseDeviceList(RestfulResponse deviceListResponse, List<Device> deviceList) throws ErrorCommandResponseException {
@@ -62,7 +38,9 @@ public class DeviceHelper {
             JSONArray list = ( (JSONObject) response.getBody()).getJSONArray("device_list");
             for (int i=0;i<list.length();i++){
                 JSONObject jsonDevice = list.getJSONObject(i);
-                deviceList.add(DeviceHelper.parseDevice(jsonDevice));
+                Device device = DeviceHelper.parseDevice(jsonDevice);
+                deviceList.add(device);
+                devices.put(device.getType()*1000+device.getPlace(),device);
             }
         } catch (ErrorResponseException e) {
             throw new ErrorCommandResponseException();
@@ -74,11 +52,11 @@ public class DeviceHelper {
     }
 
     private static Device parseDevice(JSONObject jsonDevice) throws ErrorDeviceKeyException {
-        String ID,location,type;
+        Integer ID,location,type;
         try {
-            ID = jsonDevice.getString("ID");
-            location = jsonDevice.getString("location");
-            type = jsonDevice.getString("type");
+            ID = jsonDevice.getInt("ID");
+            location = jsonDevice.getInt("location");
+            type = jsonDevice.getInt("type");
         } catch (JSONException e) {
             throw new ErrorDeviceKeyException();
         }

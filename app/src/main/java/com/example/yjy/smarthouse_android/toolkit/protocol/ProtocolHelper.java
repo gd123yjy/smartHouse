@@ -1,7 +1,7 @@
 package com.example.yjy.smarthouse_android.toolkit.protocol;
 
 import com.example.yjy.smarthouse_android.bussiness.device.DeviceHelper;
-import com.example.yjy.smarthouse_android.bussiness.protocol.ProtocalList;
+import com.example.yjy.smarthouse_android.bussiness.protocol.ProtocolList;
 import com.example.yjy.smarthouse_android.bussiness.protocol.ProtocolCommand;
 import com.example.yjy.smarthouse_android.bussiness.protocol.ProtocolCommandResponse;
 import com.example.yjy.smarthouse_android.exceptions.ErrorCommandException;
@@ -24,18 +24,18 @@ public class ProtocolHelper {
     public static HashMap<String,Integer> location = new HashMap<>();
 
     static {
-        actions.put("开", ProtocalList.OPERATION_OPEN);
-        actions.put("关", ProtocalList.OPERATION_CLOSE);
+        actions.put("开", ProtocolList.OPERATION_OPEN);
+        actions.put("关", ProtocolList.OPERATION_CLOSE);
 
-        objects.put("light_smartHome",ProtocalList.DEVICE_LIGHT);
-        objects.put("webcam_smartHome",ProtocalList.DEVICE_CAMERA);
-        objects.put("airControl_smartHome",ProtocalList.DEVICE_AIRCONTROL);
+        objects.put("light_smartHome", ProtocolList.DEVICE_LIGHT);
+        objects.put("webcam_smartHome", ProtocolList.DEVICE_CAMERA);
+        objects.put("airControl_smartHome", ProtocolList.DEVICE_AIRCONTROL);
 
-        location.put("门口",ProtocalList.LOCATION_UNDERDOOR);
-        location.put("厨房",ProtocalList.LOCATION_KITCHEN);
-        location.put("厕所",ProtocalList.LOCATION_BATHROOM);
-        location.put("房间",ProtocalList.LOCATION_BEDROOM);
-        location.put("卧室",ProtocalList.LOCATION_BEDROOM);
+        location.put("门口", ProtocolList.LOCATION_UNDERDOOR);
+        location.put("厨房", ProtocolList.LOCATION_KITCHEN);
+        location.put("厕所", ProtocolList.LOCATION_BATHROOM);
+        location.put("房间", ProtocolList.LOCATION_BEDROOM);
+        location.put("卧室", ProtocolList.LOCATION_BEDROOM);
     }
 
     public synchronized static ProtocolCommand parseCommand(String text) throws ErrorCommandException {

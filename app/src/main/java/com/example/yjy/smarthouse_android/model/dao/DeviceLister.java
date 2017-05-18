@@ -1,13 +1,12 @@
 package com.example.yjy.smarthouse_android.model.dao;
 
 import com.example.yjy.smarthouse_android.bussiness.device.DeviceHelper;
-import com.example.yjy.smarthouse_android.bussiness.protocol.ProtocalList;
+import com.example.yjy.smarthouse_android.bussiness.protocol.ProtocolList;
 import com.example.yjy.smarthouse_android.bussiness.protocol.ProtocolCommand;
 import com.example.yjy.smarthouse_android.exceptions.ErrorCommandResponseException;
 import com.example.yjy.smarthouse_android.model.beans.Device;
 import com.example.yjy.smarthouse_android.toolkit.http.RestfulRequest;
 import com.example.yjy.smarthouse_android.toolkit.http.RestfulResponse;
-import com.example.yjy.smarthouse_android.toolkit.protocol.ProtocolHelper;
 
 import org.json.JSONObject;
 
@@ -46,7 +45,7 @@ public class DeviceLister {
 
     private static String parseID(JSONObject json) {
         try {
-            return json.getString("cmd_uuid");
+            return json.getJSONObject("data").getString("cmd_uuid");
         } catch (Exception e) {
             e.printStackTrace();
             return "";
@@ -99,9 +98,9 @@ public class DeviceLister {
          }
          */
         RestfulResponse response = RestfulRequest.create()
-                .buildUri("http://"+host+"/cmds?device_id="+ ProtocalList.ID_CONTROLLER+"&qos=1")
+                .buildUri("http://"+host+"/cmds?device_id="+ ProtocolList.ID_CONTROLLER+"&qos=1")
                 .buildHeader("api-key",app_key)
-                .buildContent(new ProtocolCommand(null,ProtocalList.LIST_DEVICE).getJsonMessage())
+                .buildContent(new ProtocolCommand(0, ProtocolList.LIST_DEVICE).getJsonMessage())
                 .buildOperation("POST")
                 .send();
         return response;
@@ -136,6 +135,15 @@ public class DeviceLister {
             query result
         }
         */
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return true;
+    }
+
+    public void getLights(List<Device> lightList) {
+
     }
 }

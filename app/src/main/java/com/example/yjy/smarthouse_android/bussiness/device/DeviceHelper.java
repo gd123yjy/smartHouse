@@ -1,6 +1,6 @@
 package com.example.yjy.smarthouse_android.bussiness.device;
 
-import com.example.yjy.smarthouse_android.bussiness.protocol.ProtocalList;
+import com.example.yjy.smarthouse_android.bussiness.protocol.ProtocolList;
 import com.example.yjy.smarthouse_android.bussiness.protocol.ProtocolCommandResponse;
 import com.example.yjy.smarthouse_android.exceptions.ErrorCommandResponseException;
 import com.example.yjy.smarthouse_android.exceptions.ErrorDeviceKeyException;
@@ -26,7 +26,7 @@ public class DeviceHelper {
 
     public static Integer parseDeviceID(Integer deviceType, Integer s_location) {
         if (deviceType==null) return null;
-        if (s_location==null) s_location = ProtocalList.LOCATION_DEFAULT;
+        if (s_location==null) s_location = ProtocolList.LOCATION_DEFAULT;
         return devices.get(deviceType*1000+s_location).getID();
     }
 

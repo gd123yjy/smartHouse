@@ -3,7 +3,7 @@ package com.example.yjy.smarthouse_android.bussiness.protocol;
 /**
  * Created by yjy on 17-4-29.
  */
-public class BaseProtocal {
+public class BaseProtocol {
 
     /**
      * uniform request format:
@@ -18,8 +18,8 @@ public class BaseProtocal {
      *
      *
      * example:
-     * request:{"action":1400,"object":}
-     * response:{"action":1400,"body":{"device_list":[{"ID":"2000","name":"device1","location":"bedroom","type":"light"},{"ID":"2001","name":"device2","location":"kitchen","type":"light"}]}}
+     * request:{"action":1400,"object":0}
+     * response:{"action":1400,"body":{"device_list":[{"ID":2000,"name":"device1","location":3002,"type":2000},{"ID":"2001","name":"device2","location":3001,"type":2000}]}}
      *
      * The data structure of YOUR_JSON_OBJECT will be discussed and defined
      * once we incur with different bussiness cases
@@ -48,5 +48,20 @@ public class BaseProtocal {
 
     /** controller **/
     public static final int ID_CONTROLLER = 5794867;
+
+
+    /** object types **/
+    public static final int DEVICE_LIGHT = 2000;
+    public static final int DEVICE_CAMERA = 2100;
+    public static final int DEVICE_ELETRIC_MONITOR = 2200;
+    public static final int DEVICE_AIRCONTROL = 2300;
+
+    /** location **/
+    public static final int LOCATION_UNDERDOOR = 3000;
+    public static final int LOCATION_KITCHEN = 3001;
+    public static final int LOCATION_BEDROOM = 3002;
+    public static final int LOCATION_BATHROOM = 3003;
+
+    public static final int LOCATION_DEFAULT = LOCATION_UNDERDOOR;
 
 }

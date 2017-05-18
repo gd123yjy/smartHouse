@@ -1,5 +1,7 @@
 package com.example.yjy.smarthouse_android.bussiness.protocol;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -47,6 +49,7 @@ public class ProtocolCommand {
     }
 
     public JSONObject getJsonMessage(){
+        Log.d("",getJsonMessage(null).toString());
         return getJsonMessage(null);
     }
 

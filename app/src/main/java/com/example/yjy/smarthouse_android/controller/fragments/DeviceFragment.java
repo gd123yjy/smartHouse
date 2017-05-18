@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.yjy.smarthouse_android.R;
+import com.example.yjy.smarthouse_android.bussiness.protocol.ProtocolList;
 import com.example.yjy.smarthouse_android.controller.adapters.DeviceListViewAdapter;
 import com.example.yjy.smarthouse_android.model.beans.Device;
 import com.example.yjy.smarthouse_android.model.dao.DeviceLister;
@@ -21,6 +22,15 @@ public class DeviceFragment extends BaseFragment{
 
     private DeviceListViewAdapter adapter;
     private List<Device> deviceList = new ArrayList<>();
+
+
+    //添加測試數據
+    private void addTestData(){
+        for(int i=0;i<10;i++){
+            Device device = new Device(1, ProtocolList.LOCATION_BATHROOM,ProtocolList.DEVICE_LIGHT);
+            deviceList.add(device);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,6 +47,8 @@ public class DeviceFragment extends BaseFragment{
     }
 
     private void initView() {
+//        addTestData();
+
         ListView listView = (ListView) getView().findViewById(R.id.device_lv);
         DeviceLister.getInstance().refreshData(deviceList);
         adapter = new DeviceListViewAdapter(getActivity(), R.layout.item_device,deviceList);

@@ -12,11 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yjy.smarthouse_android.R;
 import com.example.yjy.smarthouse_android.toolkit.protocol.ProtocolHelper;
-import com.example.yjy.smarthouse_android.bussiness.protocol.ProtocalList;
+import com.example.yjy.smarthouse_android.bussiness.protocol.ProtocolList;
 import com.example.yjy.smarthouse_android.bussiness.protocol.ProtocolCommand;
 import com.example.yjy.smarthouse_android.toolkit.http.RestfulRequest;
 import com.example.yjy.smarthouse_android.toolkit.http.RestfulResponse;
@@ -36,10 +37,9 @@ public class VoiceFragment extends BaseFragment implements View.OnClickListener{
     private static String TAG = VoiceFragment.class.getSimpleName();
     // 语义理解对象（语音到语义）。
     private SpeechUnderstander mSpeechUnderstander;
-    // 语义理解对象（文本到语义）。
-    private TextUnderstander mTextUnderstander;
+
     private Toast mToast;
-    private EditText mUnderstanderText;
+    private TextView mUnderstanderText;
     private SharedPreferences mSharedPreferences;
     
     
@@ -69,9 +69,9 @@ public class VoiceFragment extends BaseFragment implements View.OnClickListener{
          * 配置相应的语音场景，才能使用语义理解，否则文本理解将不能使用，语义理解将返回听写结果。
          */
         // 初始化对象
-        mUnderstanderText = (EditText)view.findViewById(R.id.understander_text);
+        mUnderstanderText = (TextView)view.findViewById(R.id.understander_text);
         mSpeechUnderstander = SpeechUnderstander.createUnderstander(mContext, mSpeechUdrInitListener);
-        mTextUnderstander = TextUnderstander.createTextUnderstander(mContext, mTextUdrInitListener);
+//        mTextUnderstander = TextUnderstander.createTextUnderstander(mContext, mTextUdrInitListener);
         mToast = Toast.makeText(mContext, "", Toast.LENGTH_SHORT);
         mSharedPreferences = mContext.getSharedPreferences(UnderstanderSettings.PREFER_NAME, Activity.MODE_PRIVATE);
     }
@@ -85,20 +85,6 @@ public class VoiceFragment extends BaseFragment implements View.OnClickListener{
         @Override
         public void onInit(int code) {
             Log.d(TAG, "speechUnderstanderListener init() code = " + code);
-            if (code != ErrorCode.SUCCESS) {
-                showTip("初始化失败,错误码："+code);
-            }
-        }
-    };
-
-    /**
-     * 初始化监听器（文本到语义）。
-     */
-    private InitListener mTextUdrInitListener = new InitListener() {
-
-        @Override
-        public void onInit(int code) {
-            Log.d(TAG, "textUnderstanderListener init() code = " + code);
             if (code != ErrorCode.SUCCESS) {
                 showTip("初始化失败,错误码："+code);
             }
@@ -163,7 +149,7 @@ public class VoiceFragment extends BaseFragment implements View.OnClickListener{
                         ProtocolCommand parseResult = ProtocolHelper.parseCommand(text);
                         //caution,buildContent() must be called earlier than buildOperation() if using "POST"
                         RestfulResponse response = RestfulRequest.create()
-                                .buildUri("http://"+getString(R.string.onenet_restful_api)+"/cmds?device_id="+ ProtocalList.ID_CONTROLLER)
+                                .buildUri("http://"+getString(R.string.onenet_restful_api)+"/cmds?device_id="+ ProtocolList.ID_CONTROLLER)
                                 .buildHeader("api-key",getString(R.string.onenet_app_key))
                                 .buildContent(parseResult.getJsonMessage())
                                 .buildOperation("POST")
@@ -221,11 +207,6 @@ public class VoiceFragment extends BaseFragment implements View.OnClickListener{
             mSpeechUnderstander.destroy();
         }
 
-        if( null != mTextUnderstander ){
-            if(mTextUnderstander.isUnderstanding())
-                mTextUnderstander.cancel();
-            mTextUnderstander.destroy();
-        }
     }
 
     private void showTip(final String str) {

@@ -6,6 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.yjy.smarthouse_android.R;
+import com.example.yjy.smarthouse_android.model.beans.Device;
+import com.example.yjy.smarthouse_android.model.dao.DeviceLister;
+
+import java.util.ArrayList;
 
 /**
  * Created by Tradoff on 2017/5/7.
@@ -41,6 +45,7 @@ public class ControlFragment extends BaseControlFragment implements View.OnClick
        view.findViewById(R.id.water_elec_control_btn).setOnClickListener(this);
        view.findViewById(R.id.door_control_btn).setOnClickListener(this);
        view.findViewById(R.id.temp_hum_control_btn).setOnClickListener(this);
+        DeviceLister.getInstance().refreshData(new ArrayList<Device>());
     }
 
 

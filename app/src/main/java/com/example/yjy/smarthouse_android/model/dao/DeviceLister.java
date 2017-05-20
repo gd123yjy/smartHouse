@@ -136,7 +136,10 @@ public class DeviceLister {
         }
         */
         try {
-            Thread.sleep(500);
+            synchronized (this){
+                wait(500*10);
+
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

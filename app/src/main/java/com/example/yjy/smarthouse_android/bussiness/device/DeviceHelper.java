@@ -43,6 +43,7 @@ public class DeviceHelper {
                 devices.put(device.getType()*1000+device.getPlace(),device);
             }
         } catch (ErrorResponseException e) {
+            e.printStackTrace();
             throw new ErrorCommandResponseException();
         } catch (JSONException e) {
             throw new ErrorCommandResponseException();

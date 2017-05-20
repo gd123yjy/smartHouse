@@ -45,7 +45,6 @@ public class ControlFragment extends BaseControlFragment implements View.OnClick
        view.findViewById(R.id.water_elec_control_btn).setOnClickListener(this);
        view.findViewById(R.id.door_control_btn).setOnClickListener(this);
        view.findViewById(R.id.temp_hum_control_btn).setOnClickListener(this);
-        DeviceLister.getInstance().refreshData(new ArrayList<Device>());
     }
 
 

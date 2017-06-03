@@ -27,15 +27,15 @@ public class StringHelper {
     public static String type2String(int type){
         switch (type){
             case ProtocolList.DEVICE_LIGHT:
-                return "燈";
+                return "灯";
             case ProtocolList.DEVICE_AIRCONTROL:
-                return "空調";
+                return "空调";
             case ProtocolList.DEVICE_CAMERA:
-                return "相機";
+                return "相机";
             case ProtocolList.DEVICE_ELETRIC_MONITOR:
-                return "監視器";
+                return "监视器";
             default:
-                return "其他類型";
+                return "其他类型";
         }
     }
 
@@ -43,13 +43,13 @@ public class StringHelper {
     public static String location2String(int location){
         switch (location){
             case ProtocolList.LOCATION_BATHROOM:
-                return "厠所";
+                return "厕所";
             case ProtocolList.LOCATION_BEDROOM:
-                return "臥室";
+                return "卧室";
             case ProtocolList.LOCATION_KITCHEN:
                 return "厨房";
             case ProtocolList.LOCATION_UNDERDOOR:
-                return "門口";
+                return "门口";
             default:
                 return "其他地方";
         }

@@ -44,7 +44,7 @@ public class LightListViewAdapter extends ArrayAdapter<Device> {
         }
 
         final Device device = getItem(position);
-        String btn_text = StringHelper.location2String(device.getPlace()) + StringHelper.type2String(device.getType());
+        String btn_text = StringHelper.location2String(device.getPlace()) + " "+ StringHelper.type2String(device.getType());
         holder.concrete_btn.setText(btn_text);
         holder.concrete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +53,7 @@ public class LightListViewAdapter extends ArrayAdapter<Device> {
                     LightController.openLight(device.getID());
                     device.setStatus(1);
                     view.setBackgroundColor(Color.GRAY);
+
                 }else{
                     LightController.offLight(device.getID());
                     device.setStatus(0);

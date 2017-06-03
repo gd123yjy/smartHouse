@@ -17,6 +17,7 @@ public class Device {
         this.status = 0;
     }
 
+
     public Integer getStatus(){ return status; }
 
     public void setStatus(Integer status) { this.status = status;}

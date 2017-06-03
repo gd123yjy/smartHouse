@@ -19,6 +19,7 @@ public class ControlContainerFragment extends BaseFragment implements ControlFra
     private BaseFragment mWaterElecControlFragment = new WaterElecControlFragment();
     private BaseFragment mDoorControlFragment = new DoorControlFragment();
     private BaseFragment mTempHumControlFragment = new TempHumControlFragment();
+    private BaseFragment mLightGroupFragment = new LightGroupFragment();
     private FragmentManager mFragmentManager;
 
     @Override
@@ -27,6 +28,7 @@ public class ControlContainerFragment extends BaseFragment implements ControlFra
         View view = inflater.inflate(R.layout.fragment_control_container, container, false);
         mFragmentManager = getActivity().getSupportFragmentManager();
         mControlFragment.setDlg(this);
+        mLightControlFragment.setDlg(this);
         return view;
     }
 
@@ -54,6 +56,9 @@ public class ControlContainerFragment extends BaseFragment implements ControlFra
                 break;
             case R.id.temp_hum_control_btn:
                 ft.replace(R.id.control_container_fl, mTempHumControlFragment);
+                break;
+            case R.id.gropu_btn:
+                ft.replace(R.id.control_container_fl, mLightGroupFragment);
                 break;
             default:
                 break;

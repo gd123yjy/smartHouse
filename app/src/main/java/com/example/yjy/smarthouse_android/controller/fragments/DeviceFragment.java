@@ -24,7 +24,7 @@ public class DeviceFragment extends BaseFragment{
     private List<Device> deviceList = new ArrayList<>();
 
 
-    //添加測試數據
+    //添加测试数据
     private void addTestData(){
         for(int i=0;i<10;i++){
             Device device = new Device(1, ProtocolList.LOCATION_BATHROOM,ProtocolList.DEVICE_LIGHT);
@@ -47,9 +47,11 @@ public class DeviceFragment extends BaseFragment{
     }
 
     private void initView() {
+
 //        addTestData();
 
         ListView listView = (ListView) getView().findViewById(R.id.device_lv);
+        //通过向OneNet发Restful请求，拿到设备列表
         DeviceLister.getInstance().refreshData(deviceList);
         adapter = new DeviceListViewAdapter(getActivity(), R.layout.item_device,deviceList);
         listView.setAdapter(adapter);

@@ -7,4 +7,10 @@ import android.support.v4.app.Fragment;
  */
 public class BaseFragment extends Fragment {
     public String TAG = BaseFragment.class.getSimpleName();
+
+    protected ControlFragment.OnControlFragmentReplace mDlg = null;
+
+    public void setDlg(ControlFragment.OnControlFragmentReplace mDlg) {
+        this.mDlg = mDlg;
+    }
 }

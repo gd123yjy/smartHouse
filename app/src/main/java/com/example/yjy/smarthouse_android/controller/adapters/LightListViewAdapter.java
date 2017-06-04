@@ -8,11 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
-
 import com.example.yjy.smarthouse_android.R;
-import com.example.yjy.smarthouse_android.bussiness.device.LightController;
+import com.example.yjy.smarthouse_android.bussiness.device.DeviceHelper;
 import com.example.yjy.smarthouse_android.model.beans.Device;
-import com.example.yjy.smarthouse_android.toolkit.protocol.StringHelper;
+import com.example.yjy.smarthouse_android.model.dao.LightController;
 
 import java.util.List;
 
@@ -44,7 +43,7 @@ public class LightListViewAdapter extends ArrayAdapter<Device> {
         }
 
         final Device device = getItem(position);
-        String btn_text = StringHelper.location2String(device.getPlace()) + " "+ StringHelper.type2String(device.getType());
+        String btn_text = DeviceHelper.location2String(device.getPlace()) + " "+ DeviceHelper.type2String(device.getType());
         holder.concrete_btn.setText(btn_text);
         holder.concrete_btn.setOnClickListener(new View.OnClickListener() {
             @Override

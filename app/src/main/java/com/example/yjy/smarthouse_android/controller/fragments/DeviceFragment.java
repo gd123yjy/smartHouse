@@ -5,10 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.yjy.smarthouse_android.R;
 import com.example.yjy.smarthouse_android.bussiness.protocol.ProtocolList;
 import com.example.yjy.smarthouse_android.controller.adapters.DeviceListViewAdapter;
+import com.example.yjy.smarthouse_android.exceptions.QueryOutOfTimeException;
 import com.example.yjy.smarthouse_android.model.beans.Device;
 import com.example.yjy.smarthouse_android.model.dao.DeviceLister;
 
@@ -52,7 +54,11 @@ public class DeviceFragment extends BaseFragment{
 
         ListView listView = (ListView) getView().findViewById(R.id.device_lv);
         //通过向OneNet发Restful请求，拿到设备列表
-        DeviceLister.getInstance().refreshData(deviceList);
+        try {
+            DeviceLister.getInstance().refreshData(deviceList);
+        } catch (QueryOutOfTimeException e) {
+            Toast.makeText(getActivity(),"设备列表获取失败，请检查您的网络",Toast.LENGTH_LONG).show();
+        }
         adapter = new DeviceListViewAdapter(getActivity(), R.layout.item_device,deviceList);
         listView.setAdapter(adapter);
     }

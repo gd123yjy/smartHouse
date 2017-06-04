@@ -8,8 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.yjy.smarthouse_android.R;
+import com.example.yjy.smarthouse_android.bussiness.device.DeviceHelper;
 import com.example.yjy.smarthouse_android.model.beans.Device;
-import com.example.yjy.smarthouse_android.toolkit.protocol.StringHelper;
 
 import java.util.List;
 
@@ -42,8 +42,8 @@ public class DeviceListViewAdapter extends ArrayAdapter<Device> {
 
         Device device = getItem(position);
         holder.idTv.setText(String.valueOf(device.getID()));
-        holder.placeTv.setText(StringHelper.location2String(device.getPlace()));
-        holder.typeTv.setText(StringHelper.type2String(device.getType()));
+        holder.placeTv.setText(DeviceHelper.location2String(device.getPlace()));
+        holder.typeTv.setText(DeviceHelper.type2String(device.getType()));
         return convertView;
     }
 

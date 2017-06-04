@@ -1,4 +1,4 @@
-package com.example.yjy.smarthouse_android.bussiness.device;
+package com.example.yjy.smarthouse_android.model.dao;
 
 import com.example.yjy.smarthouse_android.bussiness.protocol.ProtocolCommand;
 import com.example.yjy.smarthouse_android.bussiness.protocol.ProtocolList;

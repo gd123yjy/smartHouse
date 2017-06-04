@@ -14,13 +14,13 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.yjy.smarthouse_android.R;
-import com.example.yjy.smarthouse_android.bussiness.device.GroupHelper;
-import com.example.yjy.smarthouse_android.bussiness.device.LightController;
+import com.example.yjy.smarthouse_android.bussiness.device.DeviceHelper;
+import com.example.yjy.smarthouse_android.bussiness.group.GroupHelper;
 import com.example.yjy.smarthouse_android.controller.adapters.GroupListViewAdapter;
 import com.example.yjy.smarthouse_android.model.beans.Device;
 import com.example.yjy.smarthouse_android.model.beans.DeviceGroup;
 import com.example.yjy.smarthouse_android.model.dao.DeviceLister;
-import com.example.yjy.smarthouse_android.toolkit.protocol.StringHelper;
+import com.example.yjy.smarthouse_android.model.dao.LightController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +69,7 @@ public class LightGroupFragment extends BaseControlFragment implements View.OnCl
         initStatus = new boolean[lightsNum];
         for(int i=0 ; i < lightsNum ; i++){
             Device device = devices.get(i);
-            String lightName = StringHelper.location2String(device.getPlace()) + " "+ StringHelper.type2String(device.getType());
+            String lightName = DeviceHelper.location2String(device.getPlace()) + " "+ DeviceHelper.type2String(device.getType());
             lightsName[i]=lightName;
             initStatus[i]=false;
         }

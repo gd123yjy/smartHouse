@@ -11,7 +11,11 @@ import android.widget.ListView;
 
 import com.example.yjy.smarthouse_android.R;
 import com.example.yjy.smarthouse_android.bussiness.protocol.ProtocolList;
-import com.example.yjy.smarthouse_android.controller.adapters.DeviceListViewAdapter;
+import com.example.yjy.smarthouse_android.bussiness.scene.DaySceneModel;
+import com.example.yjy.smarthouse_android.bussiness.scene.NightSceneModel;
+import com.example.yjy.smarthouse_android.bussiness.scene.NoneSceneModel;
+import com.example.yjy.smarthouse_android.bussiness.scene.SceneModelHelper;
+import com.example.yjy.smarthouse_android.bussiness.scene.SleepSceneModel;
 import com.example.yjy.smarthouse_android.controller.adapters.LightListViewAdapter;
 import com.example.yjy.smarthouse_android.model.beans.Device;
 import com.example.yjy.smarthouse_android.model.dao.DeviceLister;
@@ -23,11 +27,6 @@ import java.util.List;
  * Created by Tradoff on 2017/5/7.
  */
 public class LightControlFragment extends BaseControlFragment {
-
-    private String[] model = {"白天模式",
-            "夜间模式" ,
-            "睡眠模式"};
-    private int currentModel = 0;
 
     private LightListViewAdapter adapter;
     private List<Device> lightList = new ArrayList<>();
@@ -80,11 +79,23 @@ public class LightControlFragment extends BaseControlFragment {
             public void onClick(View view) {
 
                 AlertDialog ad =new AlertDialog.Builder(getActivity()).setTitle("选择情景模式")
-                        .setSingleChoiceItems(model, currentModel, new DialogInterface.OnClickListener() {
+                        .setSingleChoiceItems(SceneModelHelper.getAllScene() , SceneModelHelper.getCurrentModel().getModelID() , new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                currentModel = i;
-                                // TODO: 2017/6/3
+                                switch (i){
+                                    case SceneModelHelper.MODEL_ID_DAY:
+                                        SceneModelHelper.setSceneModel(DaySceneModel.class);
+                                        break;
+                                    case SceneModelHelper.MODEL_ID_NIGHT:
+                                        SceneModelHelper.setSceneModel(NightSceneModel.class);
+                                        break;
+                                    case SceneModelHelper.MODEL_ID_SLEEP:
+                                        SceneModelHelper.setSceneModel(SleepSceneModel.class);
+                                        break;
+                                    default:
+                                        SceneModelHelper.setSceneModel(NoneSceneModel.class);
+                                        break;
+                                }
                                 dialogInterface.dismiss();
                             }
                         }).create();

@@ -1,4 +1,4 @@
-package com.example.yjy.smarthouse_android.bussiness.device;
+package com.example.yjy.smarthouse_android.bussiness.group;
 
 import com.example.yjy.smarthouse_android.model.beans.DeviceGroup;
 
@@ -9,7 +9,7 @@ import com.example.yjy.smarthouse_android.model.beans.DeviceGroup;
 public class GroupHelper {
 
     public static DeviceGroup createGroup() {
-        // TODO: 2017/6/3
+        // TODO: 2017/6/3 sharedPreperence to be implemented
         return new DeviceGroup();
     }
 }

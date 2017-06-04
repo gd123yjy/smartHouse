@@ -4,12 +4,14 @@ import com.example.yjy.smarthouse_android.bussiness.device.DeviceHelper;
 import com.example.yjy.smarthouse_android.bussiness.protocol.ProtocolList;
 import com.example.yjy.smarthouse_android.bussiness.protocol.ProtocolCommand;
 import com.example.yjy.smarthouse_android.exceptions.ErrorCommandResponseException;
+import com.example.yjy.smarthouse_android.exceptions.QueryOutOfTimeException;
 import com.example.yjy.smarthouse_android.model.beans.Device;
 import com.example.yjy.smarthouse_android.toolkit.http.RestfulRequest;
 import com.example.yjy.smarthouse_android.toolkit.http.RestfulResponse;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,8 +38,9 @@ public class DeviceLister {
      * 更新设备列表，通过向OneNet发送命令包
      * @param deviceList 用来存放所有来自OneNet所响应设备的list
      * @throws IllegalArgumentException
+     * @throws QueryOutOfTimeException
      */
-    public void refreshData(List<Device> deviceList) throws IllegalArgumentException{
+    public void refreshData(List<Device> deviceList) throws IllegalArgumentException, QueryOutOfTimeException {
         if (deviceList==null) throw new IllegalArgumentException();
         RestfulResponse response ;
         response = this.sendRequest();
@@ -45,7 +48,9 @@ public class DeviceLister {
 
         //check for command dealing status
         boolean isFinished = false;
+        boolean outOfTime = false;
         //200ms进行一次查询，直至出错或者命令已响应
+        long startTime = System.currentTimeMillis();
         do{
             try{
                 Thread.sleep(100*2);
@@ -53,24 +58,24 @@ public class DeviceLister {
                 e.printStackTrace();
                 break;
             }
-        }while(!(isFinished = isResponseReceived(cmd_uuid)));
+            outOfTime = (System.currentTimeMillis()-startTime)>3*1000;
+        }while(!(isFinished = isResponseReceived(cmd_uuid)) && !outOfTime);
 
         if(isFinished){
+            //命令响应成功
            RestfulResponse deviceResponse = this.getCommandResponse(cmd_uuid);
             try {
                 DeviceHelper.parseDeviceList(deviceResponse,deviceList);
             } catch (ErrorCommandResponseException e) {
+                //control回包错误
                 e.printStackTrace();
             }
+        }else if (outOfTime){
+            //超时
+            throw new QueryOutOfTimeException();
         }
 
     }
-
-
-
-
-
-
 
     /**
      *  向OneNet设备云发送命令
@@ -141,7 +146,6 @@ public class DeviceLister {
             int status = response.getJson().getJSONObject("data").getInt("status");
             return status==4;
         }catch (Exception e){
-            e.printStackTrace();
             return false;
         }
     }
@@ -161,5 +165,15 @@ public class DeviceLister {
                 }
             }
         }
+    }
+
+    /**
+     * 从DeviceHelper缓存中取出所有“灯”设备
+     * @return  lightList
+     */
+    public List<Device> getLights() {
+        List<Device> lightList = new ArrayList<>();
+        this.getLights(lightList);
+        return lightList;
     }
 }

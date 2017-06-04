@@ -1,10 +1,8 @@
 package com.example.yjy.smarthouse_android.toolkit.http;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.example.yjy.smarthouse_android.exceptions.ErrorCommandResponseException;
-import com.example.yjy.smarthouse_android.toolkit.protocol.StringHelper;
 
 import org.json.JSONObject;
 
@@ -74,6 +72,7 @@ public class RestfulRequest {
             e.printStackTrace();
             return null;
         }
+        // TODO: 2017/6/4 若手机无网络此处应设法产生UI提示
     }
 
     public RestfulRequest buildParameter(String key, String value) {
